@@ -1,2 +1,3 @@
 # add to be ignored files and folders here
 .idea/
+target/
