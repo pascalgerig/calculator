@@ -1,21 +1,13 @@
 import java.util.Observable;
 
-public class CalcModel extends Observable {
+public class CalcModel extends Observable implements CalculatorModel {
 
     private String query;
     private String display;
 
     public CalcModel() {
-        this.setDisplay("");
-        this.setQuery("");
-    }
-
-    public void setDisplay(String display) {
-        this.display = display;
-    }
-
-    public void setQuery(String query) {
-        this.query = query;
+        this.display = "";
+        this.query = "";
     }
 
     /**

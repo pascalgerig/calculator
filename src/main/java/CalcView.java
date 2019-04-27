@@ -7,8 +7,10 @@ import java.util.Observer;
 import javax.swing.*;
 import java.util.List;
 
-public class CalcView extends JFrame implements Observer{
+//TODO include WindowAdapter
+public class CalcView extends JFrame implements Observer, CalculatorView{
     protected CalcModel model;
+    protected CalcControler controler;
 
     //Panels
     protected JPanel panel;
@@ -26,6 +28,23 @@ public class CalcView extends JFrame implements Observer{
     //Number Buttons
     protected List<JButton> numberButtonList;
 
+    public CalcView(String title, CalcControler controler) {
+        super(title);
+        this.setSize(500, 500);
+
+        this.controler = controler;
+        this.controler.addObserver(this);
+
+        this.panel = new JPanel(new GridLayout(0, 2, 0, 10));
+        add(this.panel);
+
+        this.initComponentLists();
+        this.setup();
+
+        //this.show();
+    }
+
+    //TODO outdated
     public CalcView(String title) throws HeadlessException {
         super(title);
         this.setSize(500, 500);
@@ -74,37 +93,37 @@ public class CalcView extends JFrame implements Observer{
         JButton plus = new JButton("+");
         plus.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                model.updateQuery(Operation.ADD);
+                controler.updateQuery(Operation.ADD);
             }
         });
         JButton minus = new JButton("-");
         minus.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                model.updateQuery(Operation.SUB);
+                controler.updateQuery(Operation.SUB);
             }
         });
         JButton mult = new JButton("*");
         mult.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                model.updateQuery(Operation.MULT);
+                controler.updateQuery(Operation.MULT);
             }
         });
         JButton div = new JButton("/");
         div.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                model.updateQuery(Operation.DIV);
+                controler.updateQuery(Operation.DIV);
             }
         });
         JButton mod = new JButton("mod");
         mod.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                model.updateQuery(Operation.MOD);
+                controler.updateQuery(Operation.MOD);
             }
         });
         JButton equals = new JButton("=");
         equals.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                model.displayResult();
+                controler.displayResult();
             }
         });
 
@@ -125,61 +144,61 @@ public class CalcView extends JFrame implements Observer{
         JButton one = new JButton("1");
         one.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                model.updateQuery(1);
+                controler.updateQuery(1);
             }
         });
         JButton two = new JButton("2");
         two.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                model.updateQuery(2);
+                controler.updateQuery(2);
             }
         });
         JButton three = new JButton("3");
         three.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                model.updateQuery(3);
+                controler.updateQuery(3);
             }
         });
         JButton four = new JButton("4");
         four.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                model.updateQuery(4);
+                controler.updateQuery(4);
             }
         });
         JButton five = new JButton("5");
         five.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                model.updateQuery(5);
+                controler.updateQuery(5);
             }
         });
         JButton six = new JButton("6");
         six.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                model.updateQuery(6);
+                controler.updateQuery(6);
             }
         });
         JButton seven = new JButton("7");
         seven.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                model.updateQuery(7);
+                controler.updateQuery(7);
             }
         });
         JButton eight = new JButton("8");
         eight.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                model.updateQuery(8);
+                controler.updateQuery(8);
             }
         });
         JButton nine = new JButton("9");
         nine.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                model.updateQuery(9);
+                controler.updateQuery(9);
             }
         });
         JButton zero = new JButton("0");
         zero.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                model.updateQuery(0);
+                controler.updateQuery(0);
             }
         });
 
@@ -202,5 +221,9 @@ public class CalcView extends JFrame implements Observer{
     //This is called if the model decides to notify its observer
     public void update(java.util.Observable o, Object arg) {
         this.result.setText((String) arg);
+    }
+
+    public void display() {
+        this.show();
     }
 }
