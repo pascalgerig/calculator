@@ -9,7 +9,6 @@ import java.util.List;
 
 //TODO include WindowAdapter
 public class CalcView extends JFrame implements Observer, CalculatorView{
-    protected CalcModel model;
     protected CalcControler controler;
 
     //Panels
@@ -40,25 +39,6 @@ public class CalcView extends JFrame implements Observer, CalculatorView{
 
         this.initComponentLists();
         this.setup();
-
-        //this.show();
-    }
-
-    //TODO outdated
-    public CalcView(String title) throws HeadlessException {
-        super(title);
-        this.setSize(500, 500);
-
-        this.model = new CalcModel();
-        this.model.addObserver(this);
-
-        this.panel = new JPanel(new GridLayout(0, 2, 0, 10));
-        add(this.panel);
-
-        this.initComponentLists();
-        this.setup();
-
-        this.show();
     }
 
     protected void initComponentLists() {
